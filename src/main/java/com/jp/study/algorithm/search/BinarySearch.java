@@ -1,7 +1,5 @@
 package com.jp.study.algorithm.search;
 
-import javax.naming.ldap.SortControl;
-
 import com.jp.study.algorithm.sort.AbstractSort;
 import com.jp.study.algorithm.sort.QuickSort;
 
@@ -32,19 +30,80 @@ public class BinarySearch extends AbstractSearch {
 	}
 	
 	@Override
-	public boolean search() {
+	public int search() {
 		int low = 0;
 		int high = size - 1;
-		while (low != high) {
+		while (low <= high) {
+			int mid = (high + low) / 2;
+			if (data[mid] == beFoundElement) return mid;
+			else if (data[mid] > beFoundElement) high = mid - 1;
+			else low = mid + 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public int searchTheFirstEqual() {
+		int low = 0;
+		int high = size - 1;
+		while (low <= high) {
 			int mid = (high + low) / 2;
 			if (data[mid] == beFoundElement) {
-				foundIndex = mid;
-				return true;
+				if (mid == 0 || data[mid-1] != beFoundElement) return mid;
+				else high = mid - 1;
 			}
 			else if (data[mid] > beFoundElement) high = mid - 1;
 			else low = mid + 1;
 		}
-		return false;
+		return -1;
+	}
+
+	@Override
+	public int searchTheLastEqual() {
+		int low = 0;
+		int high = size - 1;
+		while (low <= high) {
+			int mid = (high + low) / 2;
+			if (data[mid] == beFoundElement) {
+				if (mid == 0 || data[mid+1] != beFoundElement) return mid; 
+				else low = mid + 1; 
+			}
+			else if (data[mid] > beFoundElement) high = mid - 1;
+			else low = mid + 1;
+		}
+		return -1;
+	}
+
+	@Override
+	public int searchTheFirstGreatter() {
+		int low = 0;
+		int high = size - 1;
+		while (low <= high) {
+			int mid = (high + low) / 2;
+			if (data[mid] > beFoundElement) {
+				if (mid == 0 || data[mid-1] <= beFoundElement) return mid;
+				else high = mid - 1;
+			}
+			else if (data[mid] == beFoundElement) low = mid + 1;
+			else low = mid + 1;
+		}
+		return 0;
+	}
+
+	@Override
+	public int searchTheFirstSmaller() {
+		int low = 0;
+		int high = size - 1;
+		while (low <= high) {
+			int mid = (high + low) / 2;
+			if (data[mid] < beFoundElement) {
+				if (mid == 0 || data[mid+1] >= beFoundElement) return mid;
+				else low = mid + 1;
+			}
+			else if (data[mid] == beFoundElement) high = low - 1;
+			else low = mid + 1;
+		}
+		return -1;
 	}
 
 }

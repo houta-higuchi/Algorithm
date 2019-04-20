@@ -1,6 +1,6 @@
 package com.jp.study.algorithm.sort;
 
-import java.util.Random;
+import com.jp.study.algorithm.util.DataUtil;
 
 public abstract class AbstractSort {
 	
@@ -15,11 +15,12 @@ public abstract class AbstractSort {
 
 	public AbstractSort(int[] data) {
 		this.data = data;
-		originalData = data;
 		size = data.length;
+		originalData = new int[size];
+		System.arraycopy(data, 0, originalData, 0, size);
 	}
 
-	protected int[] data ;//= {6, 4, 9, 1, 2, 1, 4, 2, 0};
+	protected int[] data ;
 	protected int[] originalData ;
 	private int size = 1000;
 	private int maxElement = 10000;
@@ -34,16 +35,10 @@ public abstract class AbstractSort {
 	abstract public void sort();
 	
 	public void output(boolean isOriginal) {
-		if (isOriginal) {
-			for (int i : data) {
-				System.out.print(i + " ");
-			}
-		}
-		else {
-			for (int i : originalData) {
-				System.out.print(i + " ");
-			}
-		}
+		if (isOriginal) for (int i : data) System.out.print(i + " ");
+
+		else for (int i : originalData) System.out.print(i + " ");
+
 		System.out.println();
 	}
 	
@@ -55,14 +50,12 @@ public abstract class AbstractSort {
 	
 	
 	public void setDataRandomly() {
-		Random rand = new Random();
+		
 		if (size == 0 || maxElement == 0) throw new RuntimeException("数组大小或者数组最大值不可以为0");
-		data = new int[size];
+
+		data = DataUtil.getRamdomData(size, maxElement);
 		originalData = new int[size];
-		for (int i = 0; i < size; i++) {
-			data[i] = rand.nextInt(maxElement);
-			originalData[i] = data[i];
-		}
+		System.arraycopy(data, 0, originalData, 0, size);
 	}
 	
 	public boolean isSortCorrect() {

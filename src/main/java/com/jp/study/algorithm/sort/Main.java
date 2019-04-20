@@ -7,8 +7,6 @@ public class Main {
 
 	public static void main(String args[]) {
 		testAllSort();
-		//AbstractSort sort = new InsertSort();
-		//sort.test(100000);
 	}
 	
 	public static void testAllSort() {

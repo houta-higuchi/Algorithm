@@ -12,7 +12,7 @@ public abstract class AbstractSearch {
 	
 	protected int beFoundElement;
 	
-	protected int foundIndex = -1;
+	//protected int foundIndex = -1;
 	
 	public AbstractSearch() {
 		size = 100;
@@ -44,11 +44,39 @@ public abstract class AbstractSearch {
 		}
 	}
 	
-	public abstract boolean search();
+	/**
+	 * 查找相等的元素
+	 * @return 返回查找位置，-1为找不到
+	 */
+	public abstract int search();
+	
+	/**
+	 * 查找第一个相等的元素
+	 * @return 返回查找位置，-1为找不到
+	 */
+	public abstract int searchTheFirstEqual();
+	
+	/**
+	 * 查找最后一个相等的元素
+	 * @return 返回查找位置，-1为找不到
+	 */
+	public abstract int searchTheLastEqual();
+	
+	/**
+	 * 查找第一个大于的元素
+	 * @return 返回查找位置
+	 */
+	public abstract int searchTheFirstGreatter();
+	
+	/**
+	 * 查找第一个小于的元素
+	 * @return 返回查找位置
+	 */
+	public abstract int searchTheFirstSmaller();
 	
 	public void test() {
 		long startTime = System.currentTimeMillis();
-		boolean isFound = search();
+		int foundIndex = search();
 		long endTime = System.currentTimeMillis();
 		System.out.println("查找结束！数组大小为: " + size + ", 耗时: " + (endTime-startTime) + "ms");
 		System.out.println("原数组如下: ");
@@ -57,7 +85,7 @@ public abstract class AbstractSearch {
 		}
 		System.out.println();
 		System.out.print("查找结果: ");
-		if (isFound) System.out.println("元素" + beFoundElement + "存在于数组的第" + foundIndex + "位");
+		if (foundIndex == -1) System.out.println("元素" + data[foundIndex] + "存在于数组的第" + foundIndex + "位");
 		else System.out.println("不存在");
 	}
 }
